@@ -1,0 +1,19 @@
+/**
+ * Helpers:
+ * Use this file to declare helper styles
+ */
+
+// -------------------
+// #COLOR SYSTEMN
+// -------------------
+
+// Main app theme colors helper -> background and text color
+@each $color, $value in $app-theme-colors {
+  .bg-#{$color}-theme {
+    background-color: $value !important;
+  }
+
+  .text-#{$color}-theme:not(.active) {
+    color: $value !important;
+  }
+}

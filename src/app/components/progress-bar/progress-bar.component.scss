@@ -1,0 +1,93 @@
+@import '~bootstrap/scss/bootstrap';
+@import '~src/styles/base/variables';
+
+$left-theme-color: map-get($app-theme-colors, 'blue');
+$right-theme-color: map-get($app-theme-colors, 'orange');
+$left-opacity: 0.3;
+$right-opacity: 0.9;
+
+.custom-progress-bar {
+  display: flex;
+  width: 100%;
+  height: 50px;
+
+  .left,
+  .right {
+    padding: 10px;
+    position: relative;
+
+    h5 {
+      line-height: 1.4;
+      margin: 0;
+    }
+  }
+
+  .left {
+    width: 50%;
+    background-color: rgba($black, $left-opacity);
+    text-align: right;
+    color: $white;
+
+    &::after {
+      right: -10px;
+      top: calc(50% - 10px);
+    }
+  }
+
+  .right {
+    width: 50%;
+    background-color: rgba($gray-100, $right-opacity);
+    color: $gray-700;
+  }
+
+  .arrow {
+    width: 0;
+    height: 0;
+    border-top: 10px solid rgba($gray-100, $right-opacity);
+    border-bottom: 10px solid rgba($gray-100, $right-opacity);
+    border-left: 10px solid rgba($black, $left-opacity);
+    position: relative;
+    margin-top: 15px;
+
+    &::after,
+    &::before {
+      content: '';
+      background-color: rgba($gray-100, $right-opacity);
+      display: block;
+      width: 10px;
+      position: absolute;
+      height: 15px;
+      left: -10px;
+    }
+
+    &::before {
+      top: -25px;
+    }
+
+    &::after {
+      bottom: -25px;
+    }
+  }
+
+  &--theme-color {
+    .left {
+      background-color: rgba($left-theme-color, $left-opacity);
+    }
+
+    .right {
+      background-color: rgba($right-theme-color, $right-opacity);
+      color: $white;
+    }
+
+    .arrow {
+      border-top: 10px solid rgba($right-theme-color, $right-opacity);
+      border-bottom: 10px solid rgba($right-theme-color, $right-opacity);
+      border-left: 10px solid rgba($left-theme-color, $left-opacity);
+
+      &::after,
+      &::before {
+        background-color: rgba($right-theme-color, $right-opacity);
+      }
+    }
+  }
+}

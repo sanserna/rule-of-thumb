@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Bootstrap overwrite
+@import 'styles/base/bootstrap-overwrite';
+
+// Vendors imports
+@import '~bootstrap/scss/bootstrap';
+
+// Base Imports
+@import 'styles/base/variables';
+@import 'styles/base/mixins';
+@import 'styles/base/helpers';
+@import 'styles/base/base';
+@import 'styles/base/layout';
+@import 'styles/base/buttons';
+
+// Components imports

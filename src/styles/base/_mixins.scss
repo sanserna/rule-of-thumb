@@ -1,0 +1,22 @@
+/**
+ * Mixins:
+ * Use this file to declare your mixnins.
+ */
+
+/* mixin for multiline */
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1) {
+  overflow: hidden;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+
+  &::before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}

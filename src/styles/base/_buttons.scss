@@ -1,0 +1,38 @@
+/**
+ * Buttons:
+ * Use this file to declare buttons specific styles
+ */
+
+.btn-orange-theme,
+.btn-blue-theme {
+  transition: 300ms;
+
+  &,
+  &:hover {
+    color: #fff;
+  }
+}
+
+.btn-orange-theme {
+  $btn-color: map-get($app-theme-colors, 'orange');
+  $btn-color-dark: darken($btn-color, 10%);
+  background-color: $btn-color;
+  border-color: $btn-color-dark;
+
+  &:not([disabled]):hover,
+  &.active {
+    background-color: $btn-color-dark;
+  }
+}
+
+.btn-blue-theme {
+  $btn-color: map-get($app-theme-colors, 'blue');
+  $btn-color-dark: darken($btn-color, 20%);
+  background-color: $btn-color;
+  border-color: $btn-color-dark;
+
+  &:not([disabled]):hover,
+  &.active {
+    background-color: $btn-color-dark;
+  }
+}

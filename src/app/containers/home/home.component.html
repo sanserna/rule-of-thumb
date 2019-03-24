@@ -1,0 +1,64 @@
+<div
+  class="jumbotron jumbotron-fluid pb-0"
+  appBgImg="assets/papa-francisco.jpg"
+>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+        <app-voting-card-simple></app-voting-card-simple>
+      </div>
+    </div>
+  </div>
+  <app-progress-bar
+    showArrow="true"
+    centerLabels="true"
+    leftLabel="closing in"
+    rightLabel="22 days"
+  ></app-progress-bar>
+</div>
+
+<div class="container">
+  <div class="alert alert-secondary alert-dismissible" role="alert">
+    <div class="row">
+      <div class="col-auto">
+        <span class="font-weight-normal h5">Speak out. Be heard.</span><br />
+        <span class="font-weight-bold h3">Be counnted</span>
+      </div>
+      <div class="col">
+        Rule of Thumb is a crowd sourced court of public opinion where anyone
+        and everyone can speak out and speak freely. It's easy: You share your
+        opinion, we analyze and put the data in a public report.
+      </div>
+    </div>
+    <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button> -->
+  </div>
+
+  <br />
+
+  <h1 class="font-weight-light">Votes</h1>
+
+  <br />
+
+  <div class="row voting-cards-list">
+    <div class="col-4">
+      <app-voting-card-detailed></app-voting-card-detailed>
+    </div>
+  </div>
+
+  <div class="p-2" appBgImg="assets/people.jpg">
+    <div class="row align-items-center justify-content-between">
+      <div class="col">
+        <h3 class="font-weight-light m-0">
+          Is there anyone else yo would want ud to add?
+        </h3>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-outline-dark rounded-0">
+          Submit a Name
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

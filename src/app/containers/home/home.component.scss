@@ -1,0 +1,9 @@
+.jumbotron {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+:host .voting-cards-list ::ng-deep .card {
+  margin-bottom: 30px;
+}
