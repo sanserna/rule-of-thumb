@@ -18,7 +18,7 @@
 </div>
 
 <div class="container">
-  <div class="alert alert-secondary alert-dismissible" role="alert">
+  <div class="alert alert-secondary" role="alert">
     <div class="row">
       <div class="col-auto">
         <span class="font-weight-normal h5">Speak out. Be heard.</span><br />
@@ -30,9 +30,6 @@
         opinion, we analyze and put the data in a public report.
       </div>
     </div>
-    <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button> -->
   </div>
 
   <br />
@@ -42,20 +39,29 @@
   <br />
 
   <div class="row voting-cards-list">
-    <div class="col-4">
+    <div class="col-12 col-md-6 col-lg-4">
+      <app-voting-card-detailed></app-voting-card-detailed>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <app-voting-card-detailed></app-voting-card-detailed>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
       <app-voting-card-detailed></app-voting-card-detailed>
     </div>
   </div>
 
   <div class="p-2" appBgImg="assets/people.jpg">
     <div class="row align-items-center justify-content-between">
-      <div class="col">
+      <div class="col-12 col-sm-8 col-md-9">
         <h3 class="font-weight-light m-0">
           Is there anyone else yo would want ud to add?
         </h3>
       </div>
-      <div class="col-auto">
-        <button type="button" class="btn btn-outline-dark rounded-0">
+      <div class="col-12 col-sm-4 col-md-3">
+        <button
+          type="button"
+          class="btn btn-outline-dark btn-block rounded-0 mt-2 mt-sm-0"
+        >
           Submit a Name
         </button>
       </div>
