@@ -1,5 +1,7 @@
 import { Router } from 'express';
+
 import controllers from './vote-item.controllers';
+import { protect } from '../../utils/auth';
 
 const router = Router();
 
@@ -13,7 +15,7 @@ router
 router
   .route('/:id')
   .get(controllers.getOne)
-  .put(controllers.updateOne)
+  .put(protect, controllers.updateOne)
   .delete(controllers.removeOne);
 
 export default router;

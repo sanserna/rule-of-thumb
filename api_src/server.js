@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import config from './config';
 import { connect } from './utils/db';
+import { signup, signin } from './utils/auth';
 import userRouter from './resources/user/user.router';
 import voteItemRouter from './resources/vote-item/vote-item.router';
 
@@ -16,6 +17,9 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan('dev'));
+
+app.post('/signup', signup);
+app.post('/signin', signin);
 
 app.use('/api/user', userRouter);
 app.use('/api/vote-item', voteItemRouter);

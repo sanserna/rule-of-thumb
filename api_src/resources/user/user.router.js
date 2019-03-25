@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { updateMe } from './user.controllers';
 
 const router = Router();
