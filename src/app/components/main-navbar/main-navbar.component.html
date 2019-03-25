@@ -5,7 +5,14 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link active" href="#">Past Trials</a>
         <a class="nav-item nav-link" href="#">How It Works</a>
-        <a class="nav-item nav-link" href="#" *ngIf="user; else authAction"></a>
+        <button
+          type="button"
+          class="btn btn-link nav-item nav-link"
+          *ngIf="user; else authAction"
+          (click)="logout()"
+        >
+          Logout
+        </button>
         <ng-template #authAction>
           <button
             type="button"
