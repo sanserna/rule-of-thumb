@@ -1,0 +1,19 @@
+<form [formGroup]="loginForm">
+  <div class="pb-2">
+    <input
+      type="email"
+      class="form-control"
+      placeholder="Correo electrónico"
+      formControlName="email"
+      [ngClass]="{ 'is-invalid': isInvalidLoginFormGroupInput('email') }"
+    />
+  </div>
+
+  <input
+    type="password"
+    class="form-control"
+    placeholder="Contraseña"
+    formControlName="password"
+    [ngClass]="{ 'is-invalid': isInvalidLoginFormGroupInput('password') }"
+  />
+</form>
