@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import config from './config';
 import { connect } from './utils/db';
+import voteItemRouter from './resources/vote-item/vote-item.router';
 
 export const app = express();
 
@@ -14,6 +15,8 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan('dev'));
+
+app.use('/api/vote-item', voteItemRouter);
 
 export const start = async () => {
   try {
