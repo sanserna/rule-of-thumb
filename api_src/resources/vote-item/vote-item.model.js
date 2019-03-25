@@ -19,8 +19,14 @@ const voteItemSchema = new Schema(
       default: 'other'
     },
     meta: {
-      positove_votes: Number,
-      negative_votes: Number
+      positive_votes: {
+        type: Number,
+        default: 0
+      },
+      negative_votes: {
+        type: Number,
+        default: 0
+      }
     }
   },
   { timestamps: true }

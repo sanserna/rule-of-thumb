@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import config from './config';
 import { connect } from './utils/db';
+import userRouter from './resources/user/user.router';
 import voteItemRouter from './resources/vote-item/vote-item.router';
 
 export const app = express();
@@ -16,6 +17,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
+app.use('/api/user', userRouter);
 app.use('/api/vote-item', voteItemRouter);
 
 export const start = async () => {
