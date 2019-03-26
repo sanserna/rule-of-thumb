@@ -1,19 +1,24 @@
-<div
-  class="jumbotron jumbotron-fluid pb-0"
-  appBgImg="assets/papa-francisco.jpg"
->
+<div class="jumbotron jumbotron-fluid pb-0" [appBgImg]="bannerImg">
   <div class="container py-5">
     <div class="row">
-      <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-        <app-voting-card-simple></app-voting-card-simple>
+      <div
+        class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4"
+        *ngIf="mainVoteItem"
+      >
+        <app-voting-card-simple
+          [voteItem]="mainVoteItem"
+          (voteAction)="updateVoteItem($event, mainVoteItem)"
+        ></app-voting-card-simple>
       </div>
     </div>
   </div>
   <app-progress-bar
     showArrow="true"
     centerLabels="true"
+    [value]="daysPassedPercentage"
+    [maxValue]="100"
     leftLabel="closing in"
-    rightLabel="22 days"
+    rightLabel="{{ daysLeftPercentage }} days"
   ></app-progress-bar>
 </div>
 
@@ -38,11 +43,8 @@
 
   <br />
 
-  <div
-    class="row voting-cards-list"
-    *ngIf="(votesService.$voteItems | async) as items; else noItemsTmpl"
-  >
-    <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of items">
+  <div class="row voting-cards-list" *ngIf="voteItems; else noItemsTmpl">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of voteItems">
       <app-voting-card-detailed
         [voteItem]="item"
         [alreadyVoted]="userAlreadyVoted(item._id)"

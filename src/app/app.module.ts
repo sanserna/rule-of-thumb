@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // App directives
 import { BgImageDirective } from './directives/bg-image.directive';
+import { ExternalUrlDirective } from './directives/external-url.directive';
 
 // App pipes
 import { TrucateTxtPipe } from './pipes/trucate-txt.pipe';
@@ -49,7 +50,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
     AuthModalComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    DialogComponent
+    DialogComponent,
+    ExternalUrlDirective
   ],
   imports: [
     BrowserModule,

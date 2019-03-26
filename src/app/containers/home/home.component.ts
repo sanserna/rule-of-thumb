@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { cloneDeep } from 'lodash';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { cloneDeep, round } from 'lodash';
 
 import { VotesService } from '@app-providers/votes.service';
 import { AuthService } from '@app-providers/auth.service';
@@ -13,13 +14,20 @@ import { VoteItem } from '@app-models/vote-item';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   private maxVotes = 3;
+  private _userSubscription: Subscription;
+  private _voteItemsSubscription: Subscription;
 
   user: User;
+  voteItems: VoteItem[];
+  bannerImg: string;
+  mainVoteItem: VoteItem;
+  daysPassedPercentage = 0;
+  daysLeftPercentage = 0;
 
   constructor(
-    public votesService: VotesService,
+    private _votesService: VotesService,
     private _userFeedbackCtrl: UserFeedbackControllerService,
     private _authViewCtrl: AuthViewControllerService,
     private _authService: AuthService
@@ -28,7 +36,30 @@ export class HomeComponent implements OnInit {
   // COMPONENT LIFECYCLE HOOKS -------------------------------------------------
 
   ngOnInit() {
-    this._authService.user$.subscribe(user => (this.user = user));
+    this._userSubscription = this._authService.user$.subscribe(
+      user => (this.user = user)
+    );
+    this._voteItemsSubscription = this._votesService.$voteItems.subscribe(
+      voteItems => {
+        if (voteItems.length) {
+          this.mainVoteItem = voteItems[0];
+          this.bannerImg = this.mainVoteItem.imageUrl;
+          this.voteItems = voteItems;
+
+          this._setMainVoteItemClosinBar(
+            this.mainVoteItem.dueDate,
+            this.mainVoteItem.createdAt
+          );
+        } else {
+          this.bannerImg = 'assets/default-banner.jpg';
+        }
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this._userSubscription.unsubscribe();
+    this._voteItemsSubscription.unsubscribe();
   }
 
   // COMPONENT METHODS ---------------------------------------------------------
@@ -59,7 +90,7 @@ export class HomeComponent implements OnInit {
       newVoteItem.meta.negative_votes++;
     }
 
-    this.votesService
+    this._votesService
       .updateVoteItem(newVoteItem, this._authService.token)
       .then(() => {
         return this._authService.updateUserVoteCountForVoteItem(
@@ -80,4 +111,23 @@ export class HomeComponent implements OnInit {
   }
 
   // COMPONENT PRIVATE METHODS -------------------------------------------------
+
+  private _setMainVoteItemClosinBar(
+    voteItemDueDate: string,
+    createdAt: string
+  ): void {
+    const oneDay = 1000 * 60 * 60 * 24;
+    const createdAtDate = new Date(createdAt);
+    const dueDate = new Date(voteItemDueDate);
+    const dateNow = new Date();
+    const daysPassed = round(
+      (dateNow.getTime() - createdAtDate.getTime()) / oneDay
+    );
+    const totalDays = round(
+      (dueDate.getTime() - createdAtDate.getTime()) / oneDay
+    );
+
+    this.daysPassedPercentage = round((daysPassed * 100) / totalDays);
+    this.daysLeftPercentage = totalDays - daysPassed;
+  }
 }

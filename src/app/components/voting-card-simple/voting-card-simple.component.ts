@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import { VoteItem } from '@app-models/vote-item';
 
 @Component({
   selector: 'app-voting-card-simple',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./voting-card-simple.component.scss']
 })
 export class VotingCardSimpleComponent implements OnInit {
+  @Input() voteItem: VoteItem;
 
-  constructor() { }
+  @Output() voteAction: EventEmitter<string> = new EventEmitter();
 
-  ngOnInit() {
+  constructor() {}
+
+  // COMPONENT LIFECYCLE HOOKS -------------------------------------------------
+
+  ngOnInit() {}
+
+  // COMPONENT METHODS ---------------------------------------------------------
+
+  submitVote(voteType: string): void {
+    this.voteAction.emit(voteType);
   }
 
+  // COMPONENT PRIVATE METHODS -------------------------------------------------
 }

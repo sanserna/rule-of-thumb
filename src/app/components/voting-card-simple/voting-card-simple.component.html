@@ -1,25 +1,35 @@
 <div class="card border-0 rounded-0">
   <div class="card-body">
     <small class="text-white">What's you opinion on</small>
-    <h1 class="card-title">Pope Francis?</h1>
-    <p class="card-text">
-      He's talking tough on clergy sexual abuse, but is he just another papal
-      pervert protector? (thumbs down) or a true pedophile punishing pontiff)
-      (thumbs up)
-    </p>
-    <a href="#" class="card-link text-white">
+    <h1 class="card-title">{{ voteItem.name }}</h1>
+    <p class="card-text">{{ voteItem.desc | trucateTxt: 120:true }}</p>
+    <button
+      class="btn btn-link card-link text-white p-0"
+      *ngIf="voteItem.infoLink"
+      [appExternalUrl]="voteItem.infoLink"
+    >
       <i class="fa fa-wikipedia-w pr-1" aria-hidden="true"></i>
       <u>More information</u>
-    </a>
+    </button>
     <p class="card-text font-weight-bold pt-3">What's Your Verdict?</p>
   </div>
   <div class="card-footer border-0 p-0">
     <div class="row no-gutters">
-      <div class="col bg-warning text-center p-3">
-        <i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>
+      <div class="col">
+        <button
+          class="btn btn-orange-theme btn-block rounded-0 border-0 p-3"
+          (click)="submitVote('positive')"
+        >
+          <i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i>
+        </button>
       </div>
-      <div class="col bg-primary text-center p-3">
-        <i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+      <div class="col">
+        <button
+          class="btn btn-blue-theme btn-block rounded-0 border-0 p-3"
+          (click)="submitVote('negative')"
+        >
+          <i class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
   </div>
