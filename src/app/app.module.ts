@@ -18,6 +18,7 @@ import { TrucateTxtPipe } from './pipes/trucate-txt.pipe';
 // App services
 import { AuthViewControllerService } from '@app-providers/auth-view-controller.service';
 import { AuthService } from '@app-providers/auth.service';
+import { UserFeedbackControllerService } from '@app-providers/user-feedback-controller.service';
 
 // App containers
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { FooterComponent } from '@app-components/footer/footer.component';
 import { AuthModalComponent } from '@app-components/auth-modal/auth-modal.component';
 import { LoginFormComponent } from '@app-components/login-form/login-form.component';
 import { RegisterFormComponent } from '@app-components/register-form/register-form.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { RegisterFormComponent } from '@app-components/register-form/register-fo
     FooterComponent,
     AuthModalComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,8 +60,12 @@ import { RegisterFormComponent } from '@app-components/register-form/register-fo
     NgbModalModule,
     NgbAlertModule
   ],
-  providers: [AuthViewControllerService, AuthService],
+  providers: [
+    AuthViewControllerService,
+    AuthService,
+    UserFeedbackControllerService
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [AuthModalComponent]
+  entryComponents: [AuthModalComponent, DialogComponent]
 })
 export class AppModule {}

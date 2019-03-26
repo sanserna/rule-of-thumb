@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap, map, take } from 'rxjs/operators';
+import { merge, cloneDeep } from 'lodash';
 
 import { environment } from '@app-environment/environment';
 import { User } from '../models/user';
@@ -12,12 +13,24 @@ import { User } from '../models/user';
 export class AuthService {
   private _signupApiEndpint = `${environment.apiEndpoint}/signup`;
   private _signinApiEndpint = `${environment.apiEndpoint}/signin`;
+  private _userApiEndpint = `${environment.apiEndpoint}/api/user`;
   private _userSubject = new BehaviorSubject<User>(null);
   private _token: string;
 
   user$: Observable<User> = this._userSubject.asObservable();
 
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient) {
+    const token = this._getToken();
+
+    if (token) {
+      this._getUserData(token)
+        .pipe(
+          take(1),
+          tap(userData => this._userSubject.next(userData))
+        )
+        .subscribe();
+    }
+  }
 
   signUpWithEmail(name: string, email: string, password: string): Promise<any> {
     return this._httpClient
@@ -27,21 +40,65 @@ export class AuthService {
         password
       })
       .pipe(
-        tap(({ token }) => {
+        switchMap(({ token }) => {
           this._saveToken(token);
-          this._userSubject.next(this._getUserDetails());
+
+          return this._getUserData(token);
+        }),
+        tap(user => {
+          this._userSubject.next(user);
         })
       )
       .toPromise();
   }
 
-  signIn(email: string, password: string): Promise<any> {
+  signIn(email: string, password: string): Promise<User> {
     return this._httpClient
       .post<any>(this._signinApiEndpint, { email, password })
       .pipe(
-        tap(({ token }) => {
+        switchMap(({ token }) => {
           this._saveToken(token);
-          this._userSubject.next(this._getUserDetails());
+
+          return this._getUserData(token);
+        }),
+        tap(user => {
+          this._userSubject.next(user);
+        })
+      )
+      .toPromise();
+  }
+
+  updateUserVoteCountForVoteItem(
+    voteItemId: string,
+    value: number,
+    userVotes: object,
+    token: string
+  ): Promise<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+
+    return this._httpClient
+      .put<any>(
+        `${this._userApiEndpint}`,
+        {
+          votes: {
+            ...userVotes,
+            [voteItemId]: value
+          }
+        },
+        httpOptions
+      )
+      .pipe(
+        map(response => response.data),
+        tap(() => {
+          const userData = cloneDeep(this._userSubject.value);
+
+          userData.votes[voteItemId] = value;
+
+          this._userSubject.next(userData);
         })
       )
       .toPromise();
@@ -49,7 +106,7 @@ export class AuthService {
 
   logout() {
     this._token = '';
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this._userSubject.next(null);
   }
 
@@ -66,18 +123,18 @@ export class AuthService {
   // HELPERS -------------------------------------------------------------------
 
   private _saveToken(token: string): void {
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
     this._token = token;
   }
 
   private _getToken(): string {
     if (!this._token) {
-      this._token = localStorage.getItem('token');
+      this._token = sessionStorage.getItem('token');
     }
     return this._token;
   }
 
-  private _getUserDetails(): User {
+  private _getUserDetails(): any {
     const token = this._getToken();
 
     let payload: string;
@@ -91,7 +148,24 @@ export class AuthService {
     return null;
   }
 
+  private _getUserData(token: string): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+    const userDetails = this._getUserDetails();
+
+    return this._httpClient
+      .get<any>(`${this._userApiEndpint}/${userDetails.id}`, httpOptions)
+      .pipe(map(response => merge(userDetails, response.data)));
+  }
+
   // SETTERS -------------------------------------------------------------------
 
   // GETTERS -------------------------------------------------------------------
+
+  get token() {
+    return this._token;
+  }
 }

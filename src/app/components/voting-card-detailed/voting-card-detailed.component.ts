@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { round } from 'lodash';
 
 import { VoteItem } from '@app-models/vote-item';
 
@@ -9,16 +10,20 @@ import { VoteItem } from '@app-models/vote-item';
 })
 export class VotingCardDetailedComponent implements OnInit {
   @Input() voteItem: VoteItem;
-  @Input() votingDisabled: boolean;
+  @Input() alreadyVoted: boolean;
+
+  @Output() voteAction: EventEmitter<string> = new EventEmitter();
 
   activeVoteType = 'positive';
+  positiveVotesPercentage = 0;
+  negativeVotesPercentage = 0;
 
   constructor() {}
 
   // COMPONENT LIFECYCLE HOOKS -------------------------------------------------
 
   ngOnInit() {
-    this.votingDisabled = false;
+    this._calculateVotes();
   }
 
   // COMPONENT METHODS ---------------------------------------------------------
@@ -27,5 +32,25 @@ export class VotingCardDetailedComponent implements OnInit {
     this.activeVoteType = voteType;
   }
 
+  submitVote(): void {
+    this.voteAction.emit(this.activeVoteType);
+  }
+
+  toggleVotingControls(): void {
+    this.alreadyVoted = false;
+  }
+
   // COMPONENT PRIVATE METHODS -------------------------------------------------
+
+  private _calculateVotes(): void {
+    const {
+      meta: { negative_votes, positive_votes }
+    } = this.voteItem;
+    const totalVotes = negative_votes + positive_votes;
+
+    if (negative_votes && positive_votes) {
+      this.positiveVotesPercentage = round((positive_votes * 100) / totalVotes);
+      this.negativeVotesPercentage = round((negative_votes * 100) / totalVotes);
+    }
+  }
 }

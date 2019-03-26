@@ -68,10 +68,10 @@ export class AuthModalComponent implements OnInit, AfterViewInit {
         this.activeModal.close();
       })
       .catch(err => {
-        let errMsg = 'Ha ocurrido un error en el proceso de inicio se sesión';
+        let errMsg = 'An error occurred in the signin process';
 
         if (err.status === 401) {
-          errMsg = 'Usuario o contraseña invalido';
+          errMsg = 'Invalid username or password';
         }
 
         this._authError.next(errMsg);
@@ -98,7 +98,7 @@ export class AuthModalComponent implements OnInit, AfterViewInit {
         this.activeModal.close();
       })
       .catch(err => {
-        this._authError.next('Ha ocurrido un error en el proceso de registro');
+        this._authError.next('An error occurred in the signup process');
       })
       .then(() => (this.registerActionInProgress = false));
   }

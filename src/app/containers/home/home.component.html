@@ -45,7 +45,8 @@
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of items">
       <app-voting-card-detailed
         [voteItem]="item"
-        [votingDisabled]="!user"
+        [alreadyVoted]="userAlreadyVoted(item._id)"
+        (voteAction)="updateVoteItem($event, item)"
       ></app-voting-card-detailed>
     </div>
   </div>

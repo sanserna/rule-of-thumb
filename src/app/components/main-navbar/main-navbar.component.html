@@ -11,7 +11,7 @@
           *ngIf="user; else authAction"
           (click)="logout()"
         >
-          Logout
+          Hi {{ user.name }} (Logout)
         </button>
         <ng-template #authAction>
           <button

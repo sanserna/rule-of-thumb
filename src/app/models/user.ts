@@ -1,7 +1,8 @@
 export interface User {
-  _id: string;
+  id: string;
   email: string;
   name: string;
   exp: number;
   iat: number;
+  votes: any;
 }

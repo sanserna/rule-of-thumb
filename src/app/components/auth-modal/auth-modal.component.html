@@ -12,7 +12,7 @@
 <div class="modal-body">
   <div class="row">
     <div class="col-12 text-center pb-2">
-      <h4 class="text-secondary">Inicia sesión o registrate</h4>
+      <h4 class="text-secondary">Signin or Signup</h4>
       <ngb-alert *ngIf="authError" type="danger" [dismissible]="false">
         {{ authError }}
       </ngb-alert>
@@ -28,7 +28,7 @@
           [disabled]="loginActionInProgress"
           (click)="signInWithEmail()"
         >
-          <span class="pr-2">Iniciar sesión</span>
+          <span class="pr-2">Signin</span>
           <i
             class="fa fa-chevron-right"
             *ngIf="!loginActionInProgress; else spinner"
@@ -49,7 +49,7 @@
           [disabled]="registerActionInProgress"
           (click)="signup()"
         >
-          <span class="pr-2">Registrarse</span>
+          <span class="pr-2">Signup</span>
           <i
             class="fa fa-chevron-right"
             *ngIf="!registerActionInProgress; else spinner"
@@ -62,12 +62,12 @@
 
       <div class="text-center pt-3">
         <ng-container *ngIf="activeView === 'login'">
-          <span class="text-center text-secondary pr-1">No tienes cuenta?</span>
+          <span class="text-center text-secondary pr-1">No account?</span>
           <button
             class="btn btn-link p-0 align-baseline"
             (click)="activeView = 'register'"
           >
-            Registrate
+            Signup
           </button>
         </ng-container>
 
@@ -75,13 +75,13 @@
           *ngIf="activeView === 'register' || activeView === 'recoverPass'"
         >
           <span class="text-center text-secondary pr-1"
-            >Ya tienes una cuenta?</span
+            >Already have an account?</span
           >
           <button
             class="btn btn-link p-0 align-baseline"
             (click)="activeView = 'login'"
           >
-            Iniciar sesión
+            Signin
           </button>
         </ng-container>
       </div>

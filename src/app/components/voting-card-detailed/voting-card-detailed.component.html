@@ -17,34 +17,51 @@
                 {{ voteItem.desc | trucateTxt: 100:true }}
               </p>
 
-              <button
-                class="btn btn-blue-theme rounded-0 mr-2"
-                [class.border-light]="activeVoteType === 'positive'"
-                (click)="changeActiveVoteType('positive')"
-                *ngIf="!votingDisabled"
-              >
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-              </button>
+              <ng-container *ngIf="!alreadyVoted">
+                <button
+                  class="btn btn-blue-theme rounded-0 mr-2"
+                  [class.border-light]="activeVoteType === 'positive'"
+                  (click)="changeActiveVoteType('positive')"
+                >
+                  <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                </button>
+
+                <button
+                  class="btn btn-orange-theme border-light rounded-0 mr-2"
+                  [class.border-light]="activeVoteType === 'negative'"
+                  (click)="changeActiveVoteType('negative')"
+                >
+                  <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                </button>
+              </ng-container>
 
               <button
-                class="btn btn-orange-theme border-light rounded-0 mr-2"
-                [class.border-light]="activeVoteType === 'negative'"
-                (click)="changeActiveVoteType('negative')"
-                *ngIf="!votingDisabled"
+                type="button"
+                class="btn btn-outline-light rounded-0"
+                *ngIf="alreadyVoted; else voteBtn"
+                (click)="toggleVotingControls()"
               >
-                <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                Vote again
               </button>
 
-              <button type="button" class="btn btn-outline-light rounded-0">
-                Vote now
-              </button>
+              <ng-template #voteBtn>
+                <button
+                  type="button"
+                  class="btn btn-outline-light rounded-0"
+                  (click)="submitVote()"
+                >
+                  Vote now
+                </button>
+              </ng-template>
             </div>
 
             <div class="col-12">
               <app-progress-bar
                 percentageMode="true"
-                leftLabel="45%"
-                rightLabel="60%"
+                [value]="positiveVotesPercentage"
+                [maxValue]="100"
+                leftLabel="{{ positiveVotesPercentage }}%"
+                rightLabel="{{ negativeVotesPercentage }}%"
               ></app-progress-bar>
             </div>
           </div>

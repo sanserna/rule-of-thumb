@@ -8,4 +8,5 @@ export interface VoteItem {
     positive_votes: number;
     negative_votes: number;
   };
+  createdAt: string;
 }

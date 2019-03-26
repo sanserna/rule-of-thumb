@@ -11,8 +11,16 @@ export class ProgressBarComponent implements OnInit {
   @Input() centerLabels = false;
   @Input() leftLabel = '';
   @Input() rightLabel = '';
+  @Input() value = 0;
+  @Input() maxValue = 0;
 
   constructor() {}
 
+  // COMPONENT LIFECYCLE HOOKS -------------------------------------------------
+
   ngOnInit() {}
+
+  // COMPONENT METHODS ---------------------------------------------------------
+
+  // COMPONENT PRIVATE METHODS -------------------------------------------------
 }

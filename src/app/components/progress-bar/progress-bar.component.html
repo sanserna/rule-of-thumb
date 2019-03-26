@@ -2,7 +2,11 @@
   class="custom-progress-bar"
   [class.custom-progress-bar--theme-color]="percentageMode"
 >
-  <div class="left" [class.text-left]="!centerLabels">
+  <div
+    class="left"
+    [class.text-left]="!centerLabels"
+    [style.width]="(value || 50) + '%'"
+  >
     <i
       class="fa fa-thumbs-up pr-2"
       aria-hidden="true"
@@ -11,7 +15,11 @@
     <h5 class="d-inline-block">{{ leftLabel }}</h5>
   </div>
   <div class="arrow" *ngIf="showArrow"></div>
-  <div class="right" [class.text-right]="!centerLabels">
+  <div
+    class="right"
+    [class.text-right]="!centerLabels"
+    [style.width]="(maxValue - value || 50) + '%'"
+  >
     <h5 class="d-inline-block">{{ rightLabel }}</h5>
     <i
       class="fa fa-thumbs-down pl-2"
