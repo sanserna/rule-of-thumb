@@ -25,7 +25,7 @@ export class MainNavbarComponent implements OnInit {
 
   openAuthenticationModal(): void {
     this._authViewCtrl.openAuthDialog().then(() => {
-      console.log('hola');
+      console.log('user authenticated!');
     });
   }
 

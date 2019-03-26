@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { VoteItem } from '@app-models/vote-item';
 
 @Component({
   selector: 'app-voting-card-detailed',
@@ -6,10 +8,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./voting-card-detailed.component.scss']
 })
 export class VotingCardDetailedComponent implements OnInit {
+  @Input() voteItem: VoteItem;
+  @Input() votingDisabled: boolean;
 
-  constructor() { }
+  activeVoteType = 'positive';
+
+  constructor() {}
+
+  // COMPONENT LIFECYCLE HOOKS -------------------------------------------------
 
   ngOnInit() {
+    this.votingDisabled = false;
   }
 
+  // COMPONENT METHODS ---------------------------------------------------------
+
+  changeActiveVoteType(voteType: string): void {
+    this.activeVoteType = voteType;
+  }
+
+  // COMPONENT PRIVATE METHODS -------------------------------------------------
 }

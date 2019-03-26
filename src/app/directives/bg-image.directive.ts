@@ -4,15 +4,16 @@ import { Directive, ElementRef, Input, AfterViewInit } from '@angular/core';
   selector: '[appBgImg]'
 })
 export class BgImageDirective implements AfterViewInit {
-  private _el: HTMLElement;
-
   @Input('appBgImg') backgroundImage: string;
 
-  constructor(element: ElementRef) {
-    this._el = element.nativeElement;
-  }
+  constructor(private _el: ElementRef) {}
 
   ngAfterViewInit() {
-    this._el.style.backgroundImage = `url(${this.backgroundImage})`;
+    this._el.nativeElement.style.backgroundPosition = '50% 50%';
+    this._el.nativeElement.style.backgroundRepeat = 'no-repeat';
+    this._el.nativeElement.style.backgroundSize = 'cover';
+    this._el.nativeElement.style.backgroundImage = `url(${
+      this.backgroundImage
+    })`;
   }
 }

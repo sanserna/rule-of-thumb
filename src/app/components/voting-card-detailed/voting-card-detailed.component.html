@@ -1,7 +1,4 @@
-<div
-  class="card text-white border-0 rounded-0"
-  appBgImg="https://puntobiz.com.ar/data/img_cont/img_imagenes/img_gr/122118_85273.jpg"
->
+<div class="card text-white border-0 rounded-0" [appBgImg]="voteItem.imageUrl">
   <div class="card-img-overlay p-0">
     <div class="card-body p-0 h-100">
       <div class="row align-items-end h-100">
@@ -14,22 +11,27 @@
               ></i>
             </div>
             <div class="col pb-5">
-              <h1 class="card-title m-0">Mark Zuckerberg</h1>
+              <h1 class="card-title m-0">{{ voteItem.name }}</h1>
               <small>1 month ago in Bussiness</small>
               <p class="pt-3 block-with-text">
-                {{
-                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-                  porro consequatur eum laudantium reprehenderit! Rerum dolores
-                  suscipit id asperiores porro.'
-                    | trucateTxt: 100:true
-                }}
+                {{ voteItem.desc | trucateTxt: 100:true }}
               </p>
 
-              <button class="btn btn-blue-theme border-light rounded-0 mr-2">
+              <button
+                class="btn btn-blue-theme rounded-0 mr-2"
+                [class.border-light]="activeVoteType === 'positive'"
+                (click)="changeActiveVoteType('positive')"
+                *ngIf="!votingDisabled"
+              >
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
               </button>
 
-              <button class="btn btn-orange-theme border-light rounded-0 mr-2">
+              <button
+                class="btn btn-orange-theme border-light rounded-0 mr-2"
+                [class.border-light]="activeVoteType === 'negative'"
+                (click)="changeActiveVoteType('negative')"
+                *ngIf="!votingDisabled"
+              >
                 <i class="fa fa-thumbs-down" aria-hidden="true"></i>
               </button>
 

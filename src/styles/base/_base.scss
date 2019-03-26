@@ -7,3 +7,8 @@
 body {
   position: relative;
 }
+
+button.btn:focus {
+  outline: none;
+  box-shadow: none;
+}

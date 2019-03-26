@@ -38,17 +38,23 @@
 
   <br />
 
-  <div class="row voting-cards-list">
-    <div class="col-12 col-md-6 col-lg-4">
-      <app-voting-card-detailed></app-voting-card-detailed>
-    </div>
-    <div class="col-12 col-md-6 col-lg-4">
-      <app-voting-card-detailed></app-voting-card-detailed>
-    </div>
-    <div class="col-12 col-md-6 col-lg-4">
-      <app-voting-card-detailed></app-voting-card-detailed>
+  <div
+    class="row voting-cards-list"
+    *ngIf="(votesService.$voteItems | async) as items; else noItemsTmpl"
+  >
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of items">
+      <app-voting-card-detailed
+        [voteItem]="item"
+        [votingDisabled]="!user"
+      ></app-voting-card-detailed>
     </div>
   </div>
+
+  <ng-template #noItemsTmpl>
+    <div class="alert alert-warning" role="alert">
+      No vote items available
+    </div>
+  </ng-template>
 
   <div class="p-2" appBgImg="assets/people.jpg">
     <div class="row align-items-center justify-content-between">
