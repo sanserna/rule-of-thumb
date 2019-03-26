@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
-import { updateMe } from './user.controllers';
+import { updateMe, getUserData } from './user.controllers';
+import { protect } from '../../utils/auth';
 
 const router = Router();
 
-router.put('/', updateMe);
+router.put('/', protect, updateMe);
+router.get('/:id', getUserData);
 
 export default router;

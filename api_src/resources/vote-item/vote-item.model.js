@@ -18,6 +18,15 @@ const voteItemSchema = new Schema(
       enum: ['other', 'entertainment', 'business', 'politics'],
       default: 'other'
     },
+    infoLink: String,
+    imageUrl: {
+      type: String,
+      required: true
+    },
+    dueDate: {
+      type: Date,
+      required: true
+    },
     meta: {
       positive_votes: {
         type: Number,

@@ -1,6 +1,10 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, SchemaTypes } from 'mongoose';
 import bcrypt from 'bcrypt';
 
+const voteSchema = new Schema({
+  _id: SchemaTypes.ObjectId,
+  totalVotes: Number
+});
 const userSchema = new Schema(
   {
     name: {
@@ -17,7 +21,8 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true
-    }
+    },
+    votes: Schema.Types.Mixed
   },
   { timestamps: true }
 );
