@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { flatMap, tap } from 'rxjs/operators';
 import { cloneDeep, round } from 'lodash';
+import * as moment from 'moment';
 
 import { VotesService } from '@app-providers/votes.service';
 import { AuthService } from '@app-providers/auth.service';
@@ -132,16 +133,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     voteItemDueDate: string,
     createdAt: string
   ): void {
-    const oneDay = 1000 * 60 * 60 * 24;
-    const createdAtDate = new Date(createdAt);
-    const dueDate = new Date(voteItemDueDate);
-    const dateNow = new Date();
-    const daysPassed = round(
-      (dateNow.getTime() - createdAtDate.getTime()) / oneDay
-    );
-    const totalDays = round(
-      (dueDate.getTime() - createdAtDate.getTime()) / oneDay
-    );
+    const createdAtDate = moment(createdAt);
+    const dueDate = moment(voteItemDueDate);
+    const dateNow = moment();
+    const daysPassed = dateNow.diff(createdAtDate, 'days');
+    const totalDays = dueDate.diff(createdAtDate, 'days');
 
     this.daysPassedPercentage = round((daysPassed * 100) / totalDays);
     this.daysLeftPercentage = totalDays - daysPassed;

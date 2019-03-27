@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { round } from 'lodash';
+import { round, capitalize } from 'lodash';
+import * as moment from 'moment';
 
 import { VoteItem } from '@app-models/vote-item';
 
@@ -52,5 +53,30 @@ export class VotingCardDetailedComponent implements OnInit {
       this.positiveVotesPercentage = round((positive_votes * 100) / totalVotes);
       this.negativeVotesPercentage = round((negative_votes * 100) / totalVotes);
     }
+  }
+
+  // GETTERS -------------------------------------------------------------------
+
+  get publicationAndCategory(): string {
+    const dateNow = moment();
+    const createdAtDate = moment(this.voteItem.createdAt);
+
+    const diffMonths = dateNow.diff(createdAtDate, 'months');
+    const diffDays = dateNow.diff(createdAtDate, 'days');
+    const diffHours = dateNow.diff(createdAtDate, 'hours');
+
+    let diff: string;
+
+    if (diffMonths > 0) {
+      diff = `${diffMonths} month`;
+    } else if (diffDays > 0) {
+      diff = `${diffDays} day`;
+    } else {
+      diff = `${diffHours} hour`;
+    }
+
+    return `${diff + (!!diff && 's')} ago in ${capitalize(
+      this.voteItem.category
+    )}`;
   }
 }

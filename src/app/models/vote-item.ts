@@ -6,6 +6,7 @@ export interface VoteItem {
   link?: string;
   imageUrl: string;
   dueDate: string;
+  infoLink?: string;
   meta: {
     positive_votes: number;
     negative_votes: number;
