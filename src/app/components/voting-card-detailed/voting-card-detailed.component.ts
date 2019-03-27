@@ -49,10 +49,12 @@ export class VotingCardDetailedComponent implements OnInit {
     } = this.voteItem;
     const totalVotes = negative_votes + positive_votes;
 
-    if (negative_votes && positive_votes) {
-      this.positiveVotesPercentage = round((positive_votes * 100) / totalVotes);
-      this.negativeVotesPercentage = round((negative_votes * 100) / totalVotes);
-    }
+    this.positiveVotesPercentage = positive_votes
+      ? round((positive_votes * 100) / totalVotes)
+      : 0;
+    this.negativeVotesPercentage = negative_votes
+      ? round((negative_votes * 100) / totalVotes)
+      : 0;
   }
 
   // GETTERS -------------------------------------------------------------------
