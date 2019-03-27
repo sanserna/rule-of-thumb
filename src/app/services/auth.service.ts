@@ -26,7 +26,10 @@ export class AuthService {
       this._getUserData(token)
         .pipe(
           take(1),
-          tap(userData => this._userSubject.next(userData))
+          tap(userData => {
+            userData.votes = userData.votes || {};
+            this._userSubject.next(userData);
+          })
         )
         .subscribe();
     }

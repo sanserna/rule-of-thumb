@@ -14,7 +14,7 @@ export class VotesService {
   private _votesApiEndpint = `${environment.apiEndpoint}/api/vote-item`;
   private _voteItemsSubject = new BehaviorSubject<VoteItem[]>(null);
 
-  $voteItems: Observable<
+  voteItems$: Observable<
     VoteItem[]
   > = this._voteItemsSubject
     .asObservable()

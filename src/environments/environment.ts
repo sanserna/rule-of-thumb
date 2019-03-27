@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:3000'
+  apiEndpoint: 'https://rule-of-thumb.herokuapp.com'
 };
 
 /*

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { flatMap, tap } from 'rxjs/operators';
 import { cloneDeep, round } from 'lodash';
 
 import { VotesService } from '@app-providers/votes.service';
@@ -36,25 +37,29 @@ export class HomeComponent implements OnInit, OnDestroy {
   // COMPONENT LIFECYCLE HOOKS -------------------------------------------------
 
   ngOnInit() {
-    this._userSubscription = this._authService.user$.subscribe(
-      user => (this.user = user)
-    );
-    this._voteItemsSubscription = this._votesService.$voteItems.subscribe(
-      voteItems => {
-        if (voteItems.length) {
-          this.mainVoteItem = voteItems[0];
-          this.bannerImg = this.mainVoteItem.imageUrl;
-          this.voteItems = voteItems;
+    this._userSubscription = this._authService.user$
+      .pipe(
+        flatMap(user => {
+          this.user = user;
 
-          this._setMainVoteItemClosinBar(
-            this.mainVoteItem.dueDate,
-            this.mainVoteItem.createdAt
-          );
-        } else {
-          this.bannerImg = 'assets/default-banner.jpg';
-        }
-      }
-    );
+          return this._votesService.voteItems$;
+        }),
+        tap(voteItems => {
+          if (voteItems.length) {
+            this.mainVoteItem = voteItems[0];
+            this.bannerImg = this.mainVoteItem.imageUrl;
+            this.voteItems = voteItems;
+
+            this._setMainVoteItemClosinBar(
+              this.mainVoteItem.dueDate,
+              this.mainVoteItem.createdAt
+            );
+          } else {
+            this.bannerImg = 'assets/default-banner.jpg';
+          }
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy() {
@@ -84,9 +89,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       return;
     }
 
+    let voteIcon: string;
+
     if (voteType === 'positive') {
+      voteIcon = 'fa-thumbs-up';
       newVoteItem.meta.positive_votes++;
     } else {
+      voteIcon = 'fa-thumbs-down';
       newVoteItem.meta.negative_votes++;
     }
 
@@ -99,6 +108,13 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.user.votes,
           this._authService.token
         );
+      })
+      .then(() => {
+        this._userFeedbackCtrl.openDialog({
+          type: 'success',
+          body: `Thank you for voting!<br>you voted <i class="fa ${voteIcon} fa-lg pl-2" aria-hidden="true"></i>`,
+          acceptLabel: 'Accept'
+        });
       });
   }
 
