@@ -5,7 +5,7 @@
   "scripts": {
     "build-api": "babel api_src --out-dir api_dist",
     "dev-api": "nodemon --exec yarn restart-api",
-    "restart-api": "rimraf api_dist && yarn build-api && yarn start-api",
+    "restart-api": "rimraf api_dist && yarn build-api && yarn start",
     "start": "node api_dist/index.js",
     "heroku-postbuild": "yarn build-api"
   },

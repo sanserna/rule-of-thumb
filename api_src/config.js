@@ -12,5 +12,5 @@ export default {
     jwt: process.env.JWT_SECRET,
     jwtExp: '100d'
   },
-  dbUrl: 'mongodb://localhost:27017/rule-of-thumb'
+  dbUrl: process.env.MONGODB_URI
 };
