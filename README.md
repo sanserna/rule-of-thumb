@@ -6,6 +6,7 @@ I decided to create a combination of the two tests in just one application since
 
 - Angular v7
 - Bootstrap v4
+- Ng-bootstrap v4
 - Sass
 
 Hosted in github pages, [this is the link!](https://sanserna.github.io/rule-of-thumb/).
@@ -28,7 +29,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 - Mongoose
 - Babel v7
 
-Server: [Heroku](https://www.heroku.com/), DB Server: [mLab](https://mlab.com/)
+Server: [Heroku](https://www.heroku.com/), DB Cluster: [mLab](https://mlab.com/)
 
 ## Backend Development server
 
@@ -36,4 +37,4 @@ Run `yarn dev-api` for a dev server. Navigate to `http://localhost:3000/`.
 
 ## Backend Build
 
-Run `build-api` to build the project. The build artifacts will be stored in the `api_dist/` directory.
+Run `yarn build-api` to build the project. The build artifacts will be stored in the `api_dist/` directory.
