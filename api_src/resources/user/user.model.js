@@ -22,7 +22,10 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    votes: Schema.Types.Mixed
+    votes: {
+      type: Schema.Types.Mixed,
+      default: {}
+    }
   },
   { timestamps: true }
 );
