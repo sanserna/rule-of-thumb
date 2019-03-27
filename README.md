@@ -1,27 +1,39 @@
-# RuleOfThumb
+# About the project
+
+I decided to create a combination of the two tests in just one application since I have experience in backend and frontend.
+
+### The frontend
+
+- Angular v7
+- Bootstrap v4
+- Sass
+
+Hosted in github pages, [this is the link!](https://sanserna.github.io/rule-of-thumb/).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
 
-## Development server
+## Frontend Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `yarn dev` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
+## Frontend Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+### The Backend
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- NodeJs
+- ExpressJs v4
+- MongoDB
+- Mongoose
+- Babel v7
 
-## Running end-to-end tests
+Server: [Heroku](https://www.heroku.com/), DB Server: [mLab](https://mlab.com/)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Backend Development server
 
-## Further help
+Run `yarn dev-api` for a dev server. Navigate to `http://localhost:3000/`.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Backend Build
+
+Run `build-api` to build the project. The build artifacts will be stored in the `api_dist/` directory.
