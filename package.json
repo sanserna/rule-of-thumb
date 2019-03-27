@@ -8,7 +8,12 @@
     "build_prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-api": "babel api_src --out-dir api_dist",
+    "dev-api": "nodemon --exec yarn restart-api",
+    "restart-api": "rimraf api_dist && yarn build-api && yarn start",
+    "start": "node api_dist/index.js",
+    "heroku-postbuild": "yarn build-api"
   },
   "private": true,
   "dependencies": {
@@ -30,7 +35,18 @@
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "typeface-lato": "^0.0.54",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "cuid": "^2.1.4",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongodb": "^3.2.2",
+    "mongoose": "^5.3.13",
+    "morgan": "^1.9.1",
+    "validator": "^10.9.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
@@ -52,6 +68,29 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.2.2"
+    "typescript": "~3.2.2",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^23.4.2",
+    "eslint": "^4.15.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.3",
+    "rimraf": "^2.6.2",
+    "supertest": "^3.3.0"
   }
 }
