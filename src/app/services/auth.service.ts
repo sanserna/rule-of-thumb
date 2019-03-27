@@ -27,8 +27,7 @@ export class AuthService {
         .pipe(
           take(1),
           tap(userData => {
-            userData.votes = userData.votes || {};
-            this._userSubject.next(userData);
+            this._emitNewUserData(userData);
           })
         )
         .subscribe();
@@ -48,8 +47,8 @@ export class AuthService {
 
           return this._getUserData(token);
         }),
-        tap(user => {
-          this._userSubject.next(user);
+        tap(userData => {
+          this._emitNewUserData(userData);
         })
       )
       .toPromise();
@@ -64,8 +63,8 @@ export class AuthService {
 
           return this._getUserData(token);
         }),
-        tap(user => {
-          this._userSubject.next(user);
+        tap(userData => {
+          this._emitNewUserData(userData);
         })
       )
       .toPromise();
@@ -162,6 +161,11 @@ export class AuthService {
     return this._httpClient
       .get<any>(`${this._userApiEndpint}/${userDetails.id}`, httpOptions)
       .pipe(map(response => merge(userDetails, response.data)));
+  }
+
+  private _emitNewUserData(userData: any): void {
+    userData.votes = userData.votes || {};
+    this._userSubject.next(userData);
   }
 
   // SETTERS -------------------------------------------------------------------
